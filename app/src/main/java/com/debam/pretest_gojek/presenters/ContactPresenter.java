@@ -87,6 +87,7 @@ public class ContactPresenter implements PresenterContactsListener {
         call.enqueue(new Callback<GetAllContactResponse>() {
             @Override
             public void onResponse(Call<GetAllContactResponse> call, Response<GetAllContactResponse> response) {
+                Log.d("response", response.body().toString());
                 if(response.isSuccessful()){
                     Log.d("response", response.body().toString());
                     db.insert(response.body().getListContact());
@@ -100,6 +101,7 @@ public class ContactPresenter implements PresenterContactsListener {
             @Override
             public void onFailure(Call<GetAllContactResponse> call, Throwable t) {
                 view.onConectionProblem();
+                Log.d("call", t.toString()+" "+call.toString());
             }
         });
     }

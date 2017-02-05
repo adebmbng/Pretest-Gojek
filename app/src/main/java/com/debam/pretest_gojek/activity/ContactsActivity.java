@@ -7,7 +7,10 @@ import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.View;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.ViewAnimator;
 
@@ -47,11 +50,15 @@ public class ContactsActivity extends AppCompatActivity implements ContactViewLi
     @BindString(R.string.loading)String loading;
     @BindString(R.string.no_contact_found)String no_contact_found;
 
+    @BindView(R.id.progress)ProgressBar progress;
+
     private Context ctx;
 
     private PresenterContactsListener mPresenter;
 
     private List<Contact> contactsList;
+
+    private String TAG = "ContactActivity";
 
     @Inject
     SharedPreferences sp;
@@ -70,10 +77,9 @@ public class ContactsActivity extends AppCompatActivity implements ContactViewLi
         setContentView(R.layout.contact_activity);
 
         ctx = this;
-        ButterKnife.bind(this);
+        ButterKnife.bind(ContactsActivity.this);
 
-        tvLoading.setText("");
-    //        vaMain.setDisplayedChild(0);
+        vaMain.setDisplayedChild(0);
 
         ((MyApplication) getApplication()).getDc().inject(this);
 
@@ -82,6 +88,7 @@ public class ContactsActivity extends AppCompatActivity implements ContactViewLi
 
         //if db null
         if(db.countDB()==0) {
+            Log.d(TAG, "db=0");
             mPresenter.start();
         }
 
@@ -89,8 +96,13 @@ public class ContactsActivity extends AppCompatActivity implements ContactViewLi
 
     @Override
     public void setLoadingIndicator(boolean status) {
-        vaMain.setDisplayedChild(1);
-        tvLoading.setText(loading);
+        if(status) {
+            vaMain.setDisplayedChild(1);
+            tvLoading.setText(loading);
+        } else {
+            vaMain.setDisplayedChild(0);
+            tvLoading.setText(loading);
+        }
     }
 
     @Override
@@ -109,12 +121,14 @@ public class ContactsActivity extends AppCompatActivity implements ContactViewLi
     @Override
     public void onConectionProblem() {
         vaMain.setDisplayedChild(1);
+        progress.setVisibility(View.GONE);
         tvLoading.setText(no_contact_found);
     }
 
     @Override
     public void onNoContact() {
         vaMain.setDisplayedChild(1);
+        progress.setVisibility(View.GONE);
         tvLoading.setText(no_contact_found);
     }
 

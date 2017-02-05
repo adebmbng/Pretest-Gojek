@@ -13,6 +13,8 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -29,9 +31,16 @@ public class AppModule {
     public AppModule(Application app) {
         this.app = app;
         db = new ContactRepository(app);
+
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        OkHttpClient.Builder client = new OkHttpClient.Builder();
+        client.addInterceptor(interceptor);
+
         Retrofit base = new Retrofit.Builder()
                 .baseUrl(Constant.URL_CONSTANT.BASE_URL)
                 .addConverterFactory(GsonConverterFactory.create())
+                .client(client.build())
                 .build();
         api = base.create(APIServices.class);
     }

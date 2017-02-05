@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">Pretest-Gojek</string>
+    <string name="toolbar_title_home">Contact book</string>
+    <string name="loading">Please Wait</string>
+    <string name="no_contact_found">No contact(s) found</string>
+</resources>

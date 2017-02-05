@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal" android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="A"
+        android:layout_margin="@dimen/alphabet_gap"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/alphabet_size"
+        android:layout_gravity="center_vertical"/>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/profile_image"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="@dimen/alphabet_gap"
+        android:layout_marginLeft="@dimen/alphabet_sgap"
+        android:layout_marginBottom="@dimen/alphabet_gap"
+        app:civ_border_width="2dp"
+        app:civ_border_color="#FF000000"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tvNameContact"
+        android:layout_marginTop="@dimen/alphabet_gap"
+        android:layout_marginBottom="@dimen/alphabet_gap"
+        android:layout_marginLeft="@dimen/alphabet_sgap"
+        android:layout_marginRight="@dimen/alphabet_gap"
+        android:layout_gravity="center_vertical"
+        android:text="Ade Bambang Kurnia"
+        android:textColor="@android:color/darker_gray"
+        android:textSize="@dimen/alphabet_ssize"/>
+
+</LinearLayout>

@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="alphabet_gap">20dp</dimen>
+    <dimen name="alphabet_size">25dp</dimen>
+    <dimen name="alphabet_sgap">15dp</dimen>
+    <dimen name="alphabet_ssize">14dp</dimen>
+</resources>

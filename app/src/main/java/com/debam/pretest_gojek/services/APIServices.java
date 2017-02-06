@@ -12,6 +12,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Url;
+import rx.Observable;
 
 /**
  * Created by Debam on 2/5/17.
@@ -21,6 +22,9 @@ public interface APIServices {
 
     @GET(Constant.URL_CONSTANT.GET_CONTACTS)
     Call<List<Contact>> getContacts();
+
+    @GET(Constant.URL_CONSTANT.GET_CONTACTS)
+    Observable<List<Contact>> getContacts_rx();
 
     @GET
     Call<Contact> getContact(@Url String url);
@@ -35,5 +39,6 @@ public interface APIServices {
                                  @Field("favorite") String favorite,
                                  @Field("created_at") String created,
                                  @Field("updated_at") String updated);
+
 
 }

@@ -66,7 +66,7 @@ public class ContactsActivity extends AppCompatActivity implements ContactViewLi
     private List<Contact> contactsList;
     private List<Contact> mListFavorites;
 
-    private String TAG = "ContactActivity";
+    private String TAG = "";
 
     @Inject
     SharedPreferences sp;

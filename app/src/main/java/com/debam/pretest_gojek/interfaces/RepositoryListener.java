@@ -2,6 +2,7 @@ package com.debam.pretest_gojek.interfaces;
 
 import com.debam.pretest_gojek.models.Contact;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -9,7 +10,7 @@ import java.util.List;
  */
 
 public interface RepositoryListener {
-    void insert(List<Contact> lContact);
+    void insert(ArrayList<Contact> lContact);
 
     List<Contact> loaddb();
 

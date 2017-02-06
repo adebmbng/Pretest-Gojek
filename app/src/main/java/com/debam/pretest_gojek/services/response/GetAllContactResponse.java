@@ -9,13 +9,13 @@ import java.util.List;
  * Created by Debam on 2/5/17.
  */
 public class GetAllContactResponse {
-    private List<Contact> listContact;
+    private ArrayList<Contact> listContact;
 
-    public List<Contact> getListContact() {
+    public ArrayList<Contact> getListContact() {
         return listContact;
     }
 
-    public void setListContact(List<Contact> listContact) {
+    public void setListContact(ArrayList<Contact> listContact) {
         this.listContact = listContact;
     }
 }

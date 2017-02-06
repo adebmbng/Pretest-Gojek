@@ -37,7 +37,7 @@ public class ContactRepository  extends SQLiteOpenHelper implements RepositoryLi
             " favorite TEXT);";
 
     @Override
-    public void insert(List<Contact> lContact) {
+    public void insert(ArrayList<Contact> lContact) {
         SQLiteDatabase db = this.getWritableDatabase();
 
         for(Contact c: lContact) {

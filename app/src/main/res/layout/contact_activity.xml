@@ -19,9 +19,18 @@
             <ListView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/list_view_favorites"
+                android:scrollbars="vertical"
+                android:scrollbarStyle="insideOverlay"
+                android:divider="@android:color/transparent"/>
+
+            <ListView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:id="@+id/list_view"
                 android:scrollbars="vertical"
-                android:scrollbarStyle="insideOverlay"/>
+                android:scrollbarStyle="insideOverlay"
+                android:divider="@android:color/transparent"/>
 
         </LinearLayout>
 

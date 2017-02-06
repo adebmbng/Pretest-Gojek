@@ -13,7 +13,7 @@ public interface RepositoryListener {
 
     List<Contact> loaddb();
 
-    Contact getContactById(int i);
+    Contact getContactById(String i);
 
     Contact getContactByNum(String num);
 

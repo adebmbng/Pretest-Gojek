@@ -80,7 +80,7 @@ public class Contact {
         this.updated_at = updated_at;
     }
 
-    public String isFavorite() {
+    public String getFavorite() {
         return favorite;
     }
 

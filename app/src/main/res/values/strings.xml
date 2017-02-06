@@ -3,4 +3,12 @@
     <string name="toolbar_title_home">Contact book</string>
     <string name="loading">Please Wait</string>
     <string name="no_contact_found">No contact(s) found</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="email">Email Address</string>
+    <string name="save">Save</string>
+    <string name="error_validate">This field cannot be empty or type mismatch</string>
+    <string name="success_add_contact">Success Add Contact</string>
+    <string name="failed_add_contact">Failed add contact</string>
 </resources>

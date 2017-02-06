@@ -19,7 +19,7 @@ import java.util.List;
 public class ContactRepository  extends SQLiteOpenHelper implements RepositoryListener {
 
 
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 5;
 
     private static final String DATABASE_NAME = "contactsManager";
 
@@ -50,7 +50,7 @@ public class ContactRepository  extends SQLiteOpenHelper implements RepositoryLi
             values.put("profil_pic", c.getProfile_pic());
             values.put("created_at", c.getCreated_at());
             values.put("updated_at", c.getUpdated_at());
-            values.put("favorite", c.isFavorite());
+            values.put("favorite", c.getFavorite());
 
             db.insert(TABLE_CONTACTS, null, values);
         }
@@ -87,8 +87,28 @@ public class ContactRepository  extends SQLiteOpenHelper implements RepositoryLi
 
 
     @Override
-    public Contact getContactById(int i) {
-        return null;
+    public Contact getContactById(String i) {
+        String query = "SELECT * FROM "+TABLE_CONTACTS + " WHERE id='"+i+"'";
+        SQLiteDatabase db = this.getWritableDatabase();
+        Contact c = null;
+
+        Cursor cs = db.rawQuery(query, null);
+        if(cs.moveToFirst()){
+            do{
+                c = new Contact();
+                c.setId(cs.getString(0));
+                c.setFirst_name(cs.getString(1));
+                c.setLast_name(cs.getString(2));
+                c.setEmail(cs.getString(3));
+                c.setPhone_number(cs.getString(4));
+                c.setProfile_pic(cs.getString(5));
+                c.setCreated_at(cs.getString(6));
+                c.setUpdated_at(cs.getString(7));
+                c.setFavorite(cs.getString(8));
+
+            }while(cs.moveToNext());
+        }
+        return c;
     }
 
     @Override
@@ -121,5 +141,16 @@ public class ContactRepository  extends SQLiteOpenHelper implements RepositoryLi
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS "+TABLE_CONTACTS);
         onCreate(db);
+    }
+
+    public void setFavorite(String id, boolean fav){
+        String query="";
+        if(fav) {
+            query = "UPDATE " + TABLE_CONTACTS + " SET favorite='true' WHERE id='"+id+"'";
+        } else {
+            query = "UPDATE " + TABLE_CONTACTS + " SET favorite='false' WHERE id='"+id+"'";
+        }
+        SQLiteDatabase db = this.getWritableDatabase();
+        db.execSQL(query);
     }
 }

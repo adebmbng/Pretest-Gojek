@@ -83,14 +83,14 @@ public class ContactPresenter implements PresenterContactsListener {
     @Override
     public void start() {
         view.setLoadingIndicator(true);
-        Call<GetAllContactResponse> call = api.getContacts();
-        call.enqueue(new Callback<GetAllContactResponse>() {
+        Call<List<Contact>> call = api.getContacts();
+        call.enqueue(new Callback<List<Contact>>() {
             @Override
-            public void onResponse(Call<GetAllContactResponse> call, Response<GetAllContactResponse> response) {
+            public void onResponse(Call<List<Contact>> call, Response<List<Contact>> response) {
                 Log.d("response", response.body().toString());
                 if(response.isSuccessful()){
                     Log.d("response", response.body().toString());
-                    db.insert(response.body().getListContact());
+                    db.insert(response.body());
                     view.setLoadingIndicator(false);
                     view.showContacts();
                 } else {
@@ -99,7 +99,7 @@ public class ContactPresenter implements PresenterContactsListener {
             }
 
             @Override
-            public void onFailure(Call<GetAllContactResponse> call, Throwable t) {
+            public void onFailure(Call<List<Contact>> call, Throwable t) {
                 view.onConectionProblem();
                 Log.d("call", t.toString()+" "+call.toString());
             }

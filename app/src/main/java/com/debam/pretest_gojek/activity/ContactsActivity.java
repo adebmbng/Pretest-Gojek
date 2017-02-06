@@ -1,6 +1,7 @@
 package com.debam.pretest_gojek.activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -17,6 +18,7 @@ import android.widget.ViewAnimator;
 import com.debam.pretest_gojek.MyApplication;
 import com.debam.pretest_gojek.R;
 import com.debam.pretest_gojek.adapters.ContactAdapter;
+import com.debam.pretest_gojek.adapters.ContactAdapterFavorites;
 import com.debam.pretest_gojek.interfaces.ContactViewListener;
 import com.debam.pretest_gojek.interfaces.PresenterContactsListener;
 import com.debam.pretest_gojek.models.Contact;
@@ -24,6 +26,9 @@ import com.debam.pretest_gojek.presenters.ContactPresenter;
 import com.debam.pretest_gojek.repository.ContactRepository;
 import com.debam.pretest_gojek.services.APIServices;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -32,6 +37,7 @@ import butterknife.BindString;
 import butterknife.BindView;
 import butterknife.BindViews;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -42,6 +48,7 @@ public class ContactsActivity extends AppCompatActivity implements ContactViewLi
 
     @BindView(R.id.toolbar) Toolbar mToolbar;
     @BindView(R.id.list_view) ListView mListView;
+    @BindView(R.id.list_view_favorites) ListView mListViewFav;
     @BindView(R.id.fab) FloatingActionButton mFab;
 
     @BindView(R.id.vaMain) ViewAnimator vaMain;
@@ -57,6 +64,7 @@ public class ContactsActivity extends AppCompatActivity implements ContactViewLi
     private PresenterContactsListener mPresenter;
 
     private List<Contact> contactsList;
+    private List<Contact> mListFavorites;
 
     private String TAG = "ContactActivity";
 
@@ -90,8 +98,17 @@ public class ContactsActivity extends AppCompatActivity implements ContactViewLi
         if(db.countDB()==0) {
             Log.d(TAG, "db=0");
             mPresenter.start();
+        } else {
+            Log.d(TAG, "db="+db.countDB());
+            showContacts();
         }
 
+    }
+
+    @OnClick(R.id.fab)
+    void addContact(){
+        Intent i = new Intent(ContactsActivity.this, AddContactActivity.class);
+        startActivity(i);
     }
 
     @Override
@@ -108,6 +125,19 @@ public class ContactsActivity extends AppCompatActivity implements ContactViewLi
     @Override
     public void showContacts() {
         contactsList = mPresenter.getContacts();
+        mListFavorites = new ArrayList<>();
+        for(Contact c : contactsList){
+            if(c.getFavorite()!=null&&c.getFavorite().equalsIgnoreCase("true")){
+                mListFavorites.add(c);
+                contactsList.remove(c);
+            }
+        }
+        if(mListFavorites.size()==0){
+            mListViewFav.setVisibility(View.GONE);
+        }
+        ContactAdapterFavorites adapterFavorites = new ContactAdapterFavorites(ctx, R.layout.contact_item_facorites, mListFavorites);
+        mListViewFav.setAdapter(adapterFavorites);
+
         ContactAdapter adapter = new ContactAdapter(ctx, R.layout.contact_item, contactsList);
         mListView.setAdapter(adapter);
 

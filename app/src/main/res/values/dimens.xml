@@ -4,4 +4,6 @@
     <dimen name="alphabet_size">25dp</dimen>
     <dimen name="alphabet_sgap">15dp</dimen>
     <dimen name="alphabet_ssize">14dp</dimen>
+    <dimen name="image_add_size">80dp</dimen>
+    <dimen name="image_add_size_m">100dp</dimen>
 </resources>
